@@ -1,0 +1,55 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 35,
+    "spacing": 5,
+    "modules-left": [
+        "ext/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/ip",
+        "pulseaudio",
+        "memory",
+        "cpu",
+        "custom/gpu"
+    ],
+    "ext/workspaces": {
+        "format": "{id}",
+        "ignore-hidden": true,
+        "on-click": "activate"
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "{:%A, %d %B %Y}"
+    },
+    "custom/ip": {
+        "exec": "ip -4 addr show scope global | awk '/inet/ {print $2}' | cut -d/ -f1 | head -n1",
+        "format": " {}",
+        "interval": 30,
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": " {volume}%",
+        "format-muted": " Muted",
+        "on-click": "pamixer -t",
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {percentage}%",
+        "interval": 5,
+        "tooltip-format": "RAM: {used:0.1f}GB / {total:0.1f}GB"
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 5,
+        "tooltip": false
+    },
+    "custom/gpu": {
+        "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{print \"󰢮 \" $1 \"%\"}'",
+        "interval": 5,
+        "tooltip": false
+    }
+}
